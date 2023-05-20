@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Visuel{% endblock %}
+
+{% block body %}
+    <h1>Create new Visuel</h1>
+
+    {{ include('visuel/_form.html.twig') }}
+
+    <a href="{{ path('app_visuel_index') }}">back to list</a>
+{% endblock %}

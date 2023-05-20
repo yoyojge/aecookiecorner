@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Visuel{% endblock %}
+
+{% block body %}
+    <h1>Visuel</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ visuel.id }}</td>
+            </tr>
+            <tr>
+                <th>CheminVisuel</th>
+                <td>{{ visuel.cheminVisuel }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_visuel_index') }}">back to list</a>
+
+    <a href="{{ path('app_visuel_edit', {'id': visuel.id}) }}">edit</a>
+
+    {{ include('visuel/_delete_form.html.twig') }}
+{% endblock %}
