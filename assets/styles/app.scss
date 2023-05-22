@@ -1,0 +1,22 @@
+body {
+    background-color: rgb(220, 20, 20);
+}
+
+.icon-hover:hover {
+    border-color: #3b71ca !important;
+    background-color: white !important;
+  }
+  
+  .icon-hover:hover i {
+    color: #3b71ca !important;
+  }
+
+/* // @import "/node_modules/bootstrap/scss/bootstrap.scss"; */
+@import '~bootstrap/scss/bootstrap';
+
+
+
+
+
+
+
