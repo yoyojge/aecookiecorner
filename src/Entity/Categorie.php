@@ -27,9 +27,9 @@ class Categorie
     }
 
     public function __toString(): string
-      {
-            return $this->nomCategorie;
-        }
+    {
+        return $this->nomCategorie;
+    }
 
     public function getId(): ?int
     {

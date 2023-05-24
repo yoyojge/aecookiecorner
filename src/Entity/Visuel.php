@@ -19,6 +19,12 @@ class Visuel
     #[ORM\ManyToOne(inversedBy: 'visuels')]
     private ?Article $article = null;
 
+    public function __toString(): string
+    {
+        return $this->cheminVisuel;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

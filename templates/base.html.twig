@@ -50,13 +50,38 @@
 
          {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('jquery') }}
+              <script>
+                  $("body").css("background", "deepskyblue");
+              </script>
         {% endblock %}
         <!-- MDB -->
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"
-></script>
+        <script
+          type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"
+        ></script>
+        <script>
+            function modifQtity(operator, qtity, id){
 
+              console.log('xxx : '+operator)+' / '+qtity+' / '.id;
+
+              //TODO: verifier que qtity>0 et <5 limite de max boite
+              switch (operator) {
+                case 'plus':
+                   document.getElementById("articleQtity"+id) += qtity;
+                  break;
+                case 'moins':
+                   document.getElementById("articleQtity"+id) -= qtity;
+                    break;
+                case 'egal':
+                   document.getElementById("articleQtity"+id) = qtity;
+                  break;
+              }
+              
+                
+
+            }
+          </script>
 
 
 
