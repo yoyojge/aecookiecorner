@@ -16,5 +16,5 @@ bsCustomFileInput.init();
 
 import './js/app.js';
 
-import $ from "jquery";
-global.$ = $;
+const $ = require('jquery');
+global.$ = global.jQuery = $;
