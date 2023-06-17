@@ -24,10 +24,10 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             <!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css"
-  rel="stylesheet"
-/>
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css"
+          rel="stylesheet"
+        />
         {% endblock %}
 
        
@@ -48,40 +48,113 @@
         <!-- footer End -->
 
 
-         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {# {{ encore_entry_script_tags('jquery') }}
-              <script>
-                  $("body").css("background", "deepskyblue");
-              </script> #}
-        {% endblock %}
+         
         <!-- MDB -->
-        <script
+       {% block javascripts %}
+             <script
           type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"
         ></script>
-        <script>
+         {# <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script> #}
+
+            {{ encore_entry_script_tags('app') }}
+            {# {{ encore_entry_script_tags('jquery') }}#}
+              <script>
+                  {# $("body").css("background", "deepskyblue"); #}
+              </script> 
+        {% endblock %}
+
+
+        <script>            
+            //function pour gerer les + et - des quantités
             function modifQtity(operator, qtity, id){
 
-              console.log('xxx : '+operator)+' / '+qtity+' / '.id;
+              //console.log(operator+' / '+qtity+' / '+id);
+              //console.log( document.getElementById("articleQtity"+id).value); 
+              quantite = parseInt(document.getElementById("articleQtity"+id).value)
 
               //TODO: verifier que qtity>0 et <5 limite de max boite
               switch (operator) {
                 case 'plus':
-                   document.getElementById("articleQtity"+id) += qtity;
+                   document.getElementById("articleQtity"+id).value = quantite+1;
                   break;
                 case 'moins':
-                   document.getElementById("articleQtity"+id) -= qtity;
+                   document.getElementById("articleQtity"+id).value = quantite-1;
                     break;
-                case 'egal':
-                   document.getElementById("articleQtity"+id) = qtity;
-                  break;
-              }
-              
-                
-
+                 case 'egal':
+                   document.getElementById("articleQtity"+id).value = qtity;
+                  break; 
+              }  
             }
           </script>
+
+
+          
+
+          {% block js %}
+          <script>
+            //AJAX
+              //on peut voir les données envoyées dans l'outil de dev du navigateur
+              // onglet reseau 
+              // filtre fetch/XHR
+              //cliquer sur l'url appelée => onglet charge utile
+
+
+            async function modifPanier(id){ 
+              qtity = $('#articleQtity'+id).val();
+              
+              //console.log(id + ' ' + qtity);
+              //console.log("modifPanier");
+
+              const traitement =  data =>{ 
+                  
+                  //console.log(data);
+                  console.log(data.message);
+                  $('#ajaxPanierMaj'+id).html('<b>'+data.message+'</b>');
+                 
+
+              }
+
+              const url = '{{ path('app_modifPanier') }}';
+
+              const params = {
+                  id: id,
+                  qtity: qtity 
+              };
+              const options = {
+                  method: 'POST',
+                  body: JSON.stringify( params )  
+              };        
+
+              fetch(url, options)
+              .then(res => res.json())
+              .then(traitement )
+              {# .error(e => console.error(e)) #}
+             
+               
+                
+            } 
+
+            {# let  toto = res => res.json();
+            let  aucarré = x => x*x;
+            let  toto1 = (res,res1) => {return res.json()} ;
+           
+            function toto9(res) {
+              return res.json()
+            } #}
+
+
+
+           
+            {# $( "button" ).on( "click", function() {
+              $( this ).replaceWith( "<div>xxx" + $( this ).text() + "xxxx</div>" );
+            }); #}
+           
+
+
+
+          </script>
+          {% endblock %}
 
 
 

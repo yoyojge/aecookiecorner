@@ -14,7 +14,9 @@ import bsCustomFileInput from 'bs-custom-file-input';
 import './bootstrap';
 bsCustomFileInput.init();
 
-import './js/app.js';
+
 
 const $ = require('jquery');
 global.$ = global.jQuery = $;
+
+import './js/app.js';
