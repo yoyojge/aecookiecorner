@@ -12,10 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
 use App\Entity\Article;
 use App\Entity\Visuel;
+use App\Entity\Adresse;
+use App\Entity\User;
 
 use App\Controller\Admin\CategorieCrudController;
 use App\Controller\Admin\ArticleCrudController;
 use App\Controller\Admin\VisuelCrudController;
+use App\Controller\Admin\AdresseCrudController;
+use App\Controller\Admin\UserCrudController;
 
 // use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 // use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -65,8 +69,10 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
+        yield MenuItem::linkToCrud('Users', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Articles', 'fas fa-list', Article::class);
         yield MenuItem::linkToCrud('Visuels', 'fas fa-list', Visuel::class);
+        yield MenuItem::linkToCrud('Adresses', 'fas fa-list', Adresse::class);
     }
 }
