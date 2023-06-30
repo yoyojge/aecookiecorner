@@ -39,6 +39,8 @@ class Commande
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    
+
     public function __construct()
     {
         $this->commandeArticles = new ArrayCollection();
@@ -155,4 +157,6 @@ class Commande
 
         return $this;
     }
+
+    
 }

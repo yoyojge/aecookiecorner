@@ -35,6 +35,8 @@ class Adresse
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    
+
     public function __construct()
     {
         $this->commande = new ArrayCollection();
@@ -153,4 +155,6 @@ class Adresse
 
         return $this;
     }
+
+    
 }
