@@ -22,7 +22,7 @@ class Adresse
     private ?string $rueAdresse = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn]
     private ?Ville $ville = null;
 
     #[ORM\OneToMany(mappedBy: 'adresse', targetEntity: Commande::class)]
@@ -35,12 +35,23 @@ class Adresse
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $villeAdresse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cpAdresse = null;
+
     
 
     public function __construct()
     {
         $this->commande = new ArrayCollection();
         $this->facture = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->villeAdresse." ".$this->rueAdresse;
     }
 
     public function getId(): ?int
@@ -152,6 +163,30 @@ class Adresse
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getVilleAdresse(): ?string
+    {
+        return $this->villeAdresse;
+    }
+
+    public function setVilleAdresse(string $villeAdresse): self
+    {
+        $this->villeAdresse = $villeAdresse;
+
+        return $this;
+    }
+
+    public function getCpAdresse(): ?string
+    {
+        return $this->cpAdresse;
+    }
+
+    public function setCpAdresse(string $cpAdresse): self
+    {
+        $this->cpAdresse = $cpAdresse;
 
         return $this;
     }

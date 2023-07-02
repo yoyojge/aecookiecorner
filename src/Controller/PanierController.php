@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Adresse;
+use App\Repository\AdresseRepository;
 use App\Service\PanierService;
 use App\Repository\ArticleRepository;
 
@@ -15,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PanierController extends AbstractController
 {
     #[Route('/panier', name: 'app_panier')]
-    public function index(SessionInterface $sessionPanier, ArticleRepository $articleRepository): Response
+    public function index(SessionInterface $sessionPanier, ArticleRepository $articleRepository, AdresseRepository $adresseRepository): Response
     {
         
         $panier  = $sessionPanier->get("panier", []);
@@ -33,11 +35,16 @@ class PanierController extends AbstractController
             }
         }        
         
+        $criteriaLivraion = ["typeAdresse" => "Livraison"];
+        $criteriaFacturation = ["typeAdresse" => "Facturation"];
+
         return $this->render('panier/index.html.twig', [
             
            "dataPanier" => $dataPanier, 
            "totalPanier" => $totalPanier,
            "session" => $panier,
+           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraion),
+           'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
         ]);
     }
 
