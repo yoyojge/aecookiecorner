@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PanierController!{% endblock %}
+{% block title %}Votre panier{% endblock %}
 
 {% block body %}
 
@@ -9,6 +9,7 @@
 {# {{dump(dataPanier)}} #}
 
 <!-- cart + summary -->
+
 <section class="bg-light my-5">
   <div class="container">
     <div class="row">
@@ -17,8 +18,7 @@
       <div class="col-lg-9">
         <div class="card border shadow-0">
           <div class="m-4">
-            <h4 class="card-title mb-4">Your shopping cart</h4>            
-            
+            <h4 class="card-title mb-4">Votre panier</h4>              
 
               {% for data in dataPanier %}
                
@@ -26,37 +26,49 @@
                 {{ include('/panier/panierLigneArticle.html.twig') }}  
                 <!-- ligne Article End -->               
 
-                {% else %}
-                  panier vide
-               {% endfor %}           
-
-              <!-- ligne bloc livraison Start -->
-              {{ include('/panier/panierBlocLivraison.html.twig') }}  
-              <!-- ligne bloc livraison End -->
-
+              {% else %}
+                Votre panier est vide
+              {% endfor %}  
+      
           </div>
         </div>
-      </div>
-      <!-- cart -->
-
-      <!-- summary -->
-      <div class="col-lg-3">
+      </div>  
 
 
-        <!-- ligne bloc livraison Start -->
-        {# {{ include('/panier/panierBlocCoupon.html.twig') }}   #}
-        <!-- ligne bloc livraison End -->
 
-        <!-- ligne bloc livraison Start -->
-        {{ include('/panier/panierBlocTotal.html.twig') }}  
-        <!-- ligne bloc livraison End -->
+      {# adresse et validation #}
+      <form action="{{ path('app_paiement_index') }}" method="POST" id="aePanierValidate" name="aePanierValidate">
+
+        <div class="col-lg-9">
+          <div class="card border shadow-0">
+            <div class="m-4">
+              <h4 class="card-title mb-4">Votre panier</h4>         
+            
+                <!-- ligne bloc livraison Start -->
+                {{ include('/panier/panierBlocLivraison.html.twig') }}  
+                <!-- ligne bloc livraison End -->
+
+            </div>
+          </div>
+        </div>
+        <!-- cart -->
+
+        <!-- summary -->
+        <div class="col-lg-3">
+
+          {# {{ include('/panier/panierBlocCoupon.html.twig') }}   #}        
+          
+          {{ include('/panier/panierBlocTotal.html.twig') }}         
         
-        
-      </div>
-      <!-- summary -->
+        </div>
+         <!-- summary -->
+
+       </form>
+     
     </div>
   </div>
 </section>
+
 <!-- cart + summary -->
 
 

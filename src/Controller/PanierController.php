@@ -51,6 +51,54 @@ class PanierController extends AbstractController
 
 
 
+
+    #[Route('/updateFromPanier', name: 'app_updateFromPanier', methods: ['GET', 'POST'])]
+    public function updateFromPanier( Request $request, SessionInterface $sessionPanier, ArticleRepository $articleRepository, AdresseRepository $adresseRepository): Response
+    {    
+        // dd($_POST);
+
+        $panier = $sessionPanier->get("panier", []);
+        $panier[$_POST['articleId']] = $_POST['articleQtity'];
+        $sessionPanier->set("panier", $panier);
+
+
+        // $panier = $sessionPanier->get("panier", []);
+        $dataPanier = [];
+        $totalPanier = 0;       
+        
+        if(!empty($panier)){
+            foreach( $panier as $id=>$qtity){
+                $article = $articleRepository->find($id);
+                $dataPanier[] = [
+                    "article" => $article,
+                    "quantite" => $qtity,
+                ];
+                $totalPanier +=  $article->getPrixArticle() * $qtity;
+            }
+        }        
+        
+        $criteriaLivraion = ["typeAdresse" => "Livraison"];
+        $criteriaFacturation = ["typeAdresse" => "Facturation"];
+
+        return $this->render('panier/index.html.twig', [
+            
+           "dataPanier" => $dataPanier, 
+           "totalPanier" => $totalPanier,
+           "session" => $panier,
+           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraion),
+           'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
+        ]);
+        
+
+
+    }
+
+
+
+
+
+
+
     #[Route('/modifPanier', name: 'app_modifPanier', methods: ['POST'])]
     public function modifPanier( Request $request, SessionInterface $sessionPanier): Response
     {       

@@ -1,12 +1,94 @@
 
-{{dump(adressesLivraison)}}
 
-{{dump(adressesFacturation)}}
+
+
+
+
+
+{# {{dump(adressesLivraison)}} #}
+
+
 
 <div class="border-top pt-4 mx-4 mb-4">
-  <p><i class="fas fa-truck text-muted fa-lg"></i> Free Delivery within 1-2 weeks</p>
-  <p class="text-muted">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  <p><i class="fas fa-truck text-muted fa-lg"></i> Sélectionnez une adresse de livraison</p>
+  <p><b>Livraison en 48H</b> :Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
     aliquip
   </p>
+ </div>
+
+<div class="row">
+
+  {% if adressesLivraison == null %}
+  <div class=" pt-4 mx-4 mb-4">
+    <p>Veuillez ajouter une adresse de livraison</p>
+  </div>
+
+  {% else %}  
+
+    {% for adresseLivraison in adressesLivraison %}
+
+
+    <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+      <div class="card w-100 my-2 shadow-2-strong">      
+        
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">NOM PRENOM</a></h5>
+          <p class="card-text">{{adresseLivraison.rueAdresse}}</p>
+          <p class="card-text">{{adresseLivraison.cpAdresse}}</p>
+          <p class="card-text">{{adresseLivraison.villeAdresse}}</p>
+          
+          <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+            <input type="checkbox" class="checkoptionL" id="adresseLivraison{{loop.index}}" name="adresseLivraisonCHBX" value="{{adresseLivraison.id}}" />
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    {% endfor %}
+
+  {% endif %}  
+</div>
+
+
+{# {{dump(adressesFacturation)}} #}
+
+<div class="border-top pt-4 mx-4 mb-4">
+  <p>
+    <i class="fab fa-lg fa-cc-paypal "></i>
+    Sélectionnez une adresse de facturation</p>
+ </div>
+
+<div class="row">
+
+  {% if adressesFacturation == null %}
+  <div class=" pt-4 mx-4 mb-4">
+    <p>Veuillez ajouter une adresse de livraison</p>
+  </div>
+
+  {% else %}  
+
+    {% for adresseFacturation in adressesFacturation %}
+
+
+    <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+      <div class="card w-100 my-2 shadow-2-strong">      
+        
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">NOM PRENOM</a></h5>
+          <p class="card-text">{{adresseFacturation.rueAdresse}}</p>
+          <p class="card-text">{{adresseFacturation.cpAdresse}}</p>
+          <p class="card-text">{{adresseFacturation.villeAdresse}}</p>
+          
+          <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
+            <input type="checkbox" class="checkoptionF" id="adresseFacturation{{loop.index}}" name="adresseFacturationCHBX" value="{{adresseFacturation.id}}" />
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}  
+  
 </div>

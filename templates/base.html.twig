@@ -62,7 +62,7 @@
               <script>
                   {# $("body").css("background", "deepskyblue"); #}
               </script> 
-        {% endblock %}
+        
 
 
         <script>            
@@ -91,7 +91,7 @@
 
           
 
-          {% block js %}
+         
           <script>
             //AJAX
               //on peut voir les données envoyées dans l'outil de dev du navigateur
@@ -154,6 +154,101 @@
 
 
           </script>
+
+
+
+
+<script>
+//gestion des checkbox des adresses
+
+$('.checkoptionF').click(function() {
+    $('.checkoptionF').not(this).prop('checked', false);
+});
+
+$('.checkoptionL').click(function() {
+    $('.checkoptionL').not(this).prop('checked', false);
+});
+</script>
+
+
+
+
+
+<script>
+//gestion des adresses sur la page panier
+
+  //document.getElementById('aeValidate').onclick = function() {      
+  function verifAdresses() {  
+     
+    var messageErreur = "";
+    var flagLivraison = "";
+    var flagFacturation = "";
+
+    var checkboxesLivraison = document.getElementsByName('adresseLivraisonCHBX');
+    for (var checkboxLivraison of checkboxesLivraison)
+    {
+      if (checkboxLivraison.checked) {
+          console.log('adresse livraison ok');
+          flagLivraison = "ok";
+      }
+    }
+
+    var checkboxesFacturation = document.getElementsByName('adresseFacturationCHBX');
+    for (var checkboxFacturation of checkboxesFacturation)
+    {
+      if (checkboxFacturation.checked) {
+          console.log('adresse Facturation ok');
+          flagFacturation = "ok";
+      }
+    }
+
+    if(flagLivraison == ""){
+       messageErreur = "Vous devez choisir ou renseigner une adresse de livraison<br />";       
+    }
+
+    if(flagFacturation == ""){
+        messageErreur += "Vous devez choisir ou renseigner une adresse de facturation";
+    }
+
+
+    if(flagFacturation == "ok" && flagLivraison == "ok"){
+       console.log('redirection paiement');
+       $('form#aePanierValidate').submit();
+
+    }
+    else{
+      console.log('erreur');
+      $('#errorAdresses').show();
+      $('#errorAdresses').html(messageErreur);
+    }
+
+
+  }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {% endblock %}
 
 

@@ -28,18 +28,58 @@
 
   <div class="col-lg-2 col-sm-8 col-6 d-flex flex-row flex-lg-column flex-xl-row text-nowrap">
     
-    <div class="" style="margin-right:15px;">
-      <div class="input-group mb-3" style="width: 130px;">
-        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
-          <i class="fas fa-minus"></i>
-        </button>
-        <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{data.quantite}}" />
-        <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
-          <i class="fas fa-plus"></i>
-        </button>
+    
+    <form action="{{path ('app_updateFromPanier') }}" id="formArticle{{data.article.id}}" name="formArticle{{data.article.id}}" method="POST">
+
+      <div class="" style="margin-right:15px;">
+        <div class="input-group mb-3" style="width: 130px;">
+          {# <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+            <i class="fas fa-minus"></i>
+          </button>
+          <input type="text" class="form-control text-center border border-secondary" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{data.quantite}}" />
+          <button class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+            <i class="fas fa-plus"></i>
+          </button> #}
+
+          <button 
+            class="btn btn-white border border-secondary px-3" 
+            type="button" id="button-addon1" 
+            data-mdb-ripple-color="dark" 
+            onclick="modifQtity('moins', 1, {{data.article.id}});"
+            >
+            <i class="fas fa-minus"></i>
+          </button>
+
+          <input 
+            type="text" 
+            class="form-control text-center border border-secondary" 
+            placeholder="1" 
+            aria-label="Example text with button addon" 
+            aria-describedby="button-addon1" 
+            value="{{data.quantite}}" 
+            id="articleQtity{{data.article.id}}" 
+            name="articleQtity" 
+          />
+
+          <button 
+            class="btn btn-white border border-secondary px-3" 
+            type="button" 
+            id="button-addon2" 
+            data-mdb-ripple-color="dark" 
+            onclick="modifQtity('plus', 1, {{data.article.id}});"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+
+        </div>
+
+        <input type="hidden" name="articleId"  value="{{data.article.id}}" />
+        <button type="submit" class="btn btn-primary shadow-0 me-1">Modifier</button>
+        {# <a href="{{path ('app_updateFromPanier', {articleId: data.article.id, articleQtity: articleQtity} ) }}" class="btn btn-primary shadow-0 me-1">Modifier</a> #}
+        
       </div>
-      
-    </div>
+    </form>
+
 
     <div class="">
       <small class="text-muted text-nowrap"> {{data.article.prixArticle}} € / par boite </small> <br />
