@@ -1,0 +1,36 @@
+
+
+
+{{ form_start(registrationForm) }}
+
+    <h2 class="h3 mb-3 font-weight-normal">Inscription</h2>
+    
+    {{ form_row(registrationForm.nomUser, {
+            label: 'Nom'
+            }
+        ) 
+    }}
+    {{ form_row(registrationForm.prenomUser, {
+            label: 'Prénom'
+            }
+        ) 
+    }}
+    {{ form_row(registrationForm.email, {
+            label: 'Email'
+            }
+        ) 
+    }}
+    {{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe'
+            }
+        ) 
+    }}
+    {{ form_row(registrationForm.agreeTerms, {
+            label: "J'accepte les termes de l'inscription"
+            }
+        ) 
+    }}
+
+    <button type="submit" class="btn">Je m'inscris</button>
+{{ form_end(registrationForm) }}
+

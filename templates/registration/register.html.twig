@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<section class="bg-light my-5">
+  <div class="container">
+    <div class="row">
+
+    <h1>S'inscrire</h1>
+
+    {{ include('/registration/registerForm.html.twig') }}      
+
+
+    </div>
+  </div>
+</section>
+{% endblock %}

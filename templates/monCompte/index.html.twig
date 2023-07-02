@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MON COMPTE{% endblock %}
+
+{% block body %}
+
+
+{# {{dump(dataPanier)}} #}
+
+
+<section class="bg-light my-5">
+  <div class="container">
+    <div class="row">
+
+      <div class="mb-3">
+          {{ app.user.userIdentifier }}
+          {# , <a href="{{ path('app_logout') }}">Logout</a> #}
+      </div>
+
+      <div><a href="{{ path('app_adresse_index') }}">Mes adresses</a></div>
+      <div><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></div>
+      <div><a href="{{ path('app_commande_index') }}">Mes Commandes</a></div>
+      <div><a href="{{ path('app_facture_index') }}">Mes Factures</a></div>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

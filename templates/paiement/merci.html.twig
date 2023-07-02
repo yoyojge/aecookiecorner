@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AWYIF76W1ToMO8jzvEAArqYAQceS7Jr4dMx0bPlX0wiV0sN0qYjtCBne592v41M7CZCwwZ8ExOaskUt-&currency=EUR&locale=fr_FR"></script>
+{% endblock %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+{{dump(panierSess)}}
+
+{{dump(addLivrSess)}}
+
+{{dump(addFactSess)}}
+
+{{dump(totalConf)}}
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{ totalConf }}'
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+                // Successful capture! For demo purposes:
+                console.log(orderData);
+                fetch("{{ path('app_processPayment') }}", {
+                    method: 'POST',
+                    body: "order=" + JSON.stringify(orderData),
+                    headers: new Headers({
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    })
+                }).then(function (response) {
+                    if (response.status == 200) {
+                        window.location.href = "{{ path('cart.thanks') }}";
+                    } else {
+                        alert('Une erreur est survenue');
+                    }
+                });
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}
+
+
+
+
