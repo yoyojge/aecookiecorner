@@ -67,8 +67,8 @@
             </div>
 
             
-            <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">
-              <div id="ajaxPanierMaj{{article.id}}"></div>
+            <div class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto" style="position:relative;">
+              <div id="ajaxPanierMaj{{article.id}}" style="position:absolute; top:-10px;"></div>
               {# <button type="submit" class="btn btn-primary shadow-0 me-1">Add to cart</button> #}
               <button onclick="modifPanier( {{article.id}} )" class="btn btn-primary shadow-0 me-1">Ajouter au panier</button>
               {# <a href="{{ path('app_addPanier', {id :article.id , qtity:1 }) }}" class="btn btn-primary shadow-0 me-1">Add to cart</a> #}

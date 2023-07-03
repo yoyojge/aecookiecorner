@@ -65,111 +65,103 @@
         
 
 
-        <script>            
-            //function pour gerer les + et - des quantités
-            function modifQtity(operator, qtity, id){
+              <script>            
+                //function pour gerer les + et - des quantités
+                function modifQtity(operator, qtity, id){
 
-              //console.log(operator+' / '+qtity+' / '+id);
-              //console.log( document.getElementById("articleQtity"+id).value); 
-              quantite = parseInt(document.getElementById("articleQtity"+id).value)
-              console.log("quantite : "+ quantite);
-              
-              //Verifier que quantite >0 et <10 limite de max boite
-              
-             
-              
-             
-                switch (operator) {
-                  case 'plus':
-                    if(parseInt(quantite)+1 > 10 ){  
-                      console.log("quantite+1 : "+ parseInt(quantite)+parseInt(1));              
-                      console.log("+1 max");
-                      return;
-                    }
-                    document.getElementById("articleQtity"+id).value = quantite+1;
-                    break;
-                  case 'moins':
-                    if(parseInt(quantite)-1 < 0 ){  
-                      console.log("quantite+1 : "+ parseInt(quantite)-1);                
-                      console.log("-1 min");
-                      return;
-                    }
-                    document.getElementById("articleQtity"+id).value = quantite-1;
+                  //console.log(operator+' / '+qtity+' / '+id);
+                  //console.log( document.getElementById("articleQtity"+id).value); 
+                  quantite = parseInt(document.getElementById("articleQtity"+id).value)
+                  console.log("quantite : "+ quantite);
+                  
+                  //Verifier que quantite >0 et <10 limite de max boite                  
+                  switch (operator) {
+                    case 'plus':
+                      if(parseInt(quantite)+1 > 10 ){  
+                        console.log("quantite+1 : "+ parseInt(quantite)+parseInt(1));              
+                        console.log("+1 max");
+                        return;
+                      }
+                      document.getElementById("articleQtity"+id).value = quantite+1;
                       break;
-                  //case 'egal':
-                    //document.getElementById("articleQtity"+id).value = qtity;
-                    //break; 
-                }  
-              
-            }
-          </script>
+                    case 'moins':
+                      if(parseInt(quantite)-1 < 0 ){  
+                        console.log("quantite+1 : "+ parseInt(quantite)-1);                
+                        console.log("-1 min");
+                        return;
+                      }
+                      document.getElementById("articleQtity"+id).value = quantite-1;
+                        break;
+                    //case 'egal':
+                      //document.getElementById("articleQtity"+id).value = qtity;
+                      //break; 
+                  }  
+                  
+                }
+              </script>
 
 
           
 
          
-          <script>
-            //AJAX
-              //on peut voir les données envoyées dans l'outil de dev du navigateur
-              // onglet reseau 
-              // filtre fetch/XHR
-              //cliquer sur l'url appelée => onglet charge utile
+              <script>
+                //AJAX
+                  //on peut voir les données envoyées dans l'outil de dev du navigateur
+                  // onglet reseau 
+                  // filtre fetch/XHR
+                  //cliquer sur l'url appelée => onglet charge utile
 
 
-            async function modifPanier(id){ 
-              qtity = $('#articleQtity'+id).val();
-              
-              //console.log(id + ' ' + qtity);
-              //console.log("modifPanier");
-
-              const traitement =  data =>{ 
+                async function modifPanier(id){ 
+                  qtity = $('#articleQtity'+id).val();
                   
-                  //console.log(data);
-                  console.log(data.message);
-                  $('#ajaxPanierMaj'+id).html('<b>'+data.message+'</b>');
-                 
+                  //console.log(id + ' ' + qtity);
+                  //console.log("modifPanier");
 
-              }
+                  const traitement =  data =>{                       
+                      console.log(data);
+                      {# console.log(data.message); #}
+                      $('#ajaxPanierMaj'+id).html('<b>'+data.message+'</b>'); 
+                      $('#ajaxPanierMaj'+id).fadeOut( 5000 );
+                  }
 
-              const url = '{{ path('app_modifPanier') }}';
+                  const url = '{{ path('app_modifPanier') }}';
 
-              const params = {
-                  id: id,
-                  qtity: qtity 
-              };
-              const options = {
-                  method: 'POST',
-                  body: JSON.stringify( params )  
-              };        
+                  const params = {
+                      id: id,
+                      qtity: qtity 
+                  };
+                  const options = {
+                      method: 'POST',
+                      body: JSON.stringify( params )  
+                  };        
 
-              fetch(url, options)
-              .then(res => res.json())
-              .then(traitement )
-              {# .error(e => console.error(e)) #}
-             
-               
-                
-            } 
+                  fetch(url, options)
+                  .then(res => res.json())
+                  .then(traitement )
+                  {# .error(e => console.error(e)) #} 
+                    
+                } 
 
-            {# let  toto = res => res.json();
-            let  aucarré = x => x*x;
-            let  toto1 = (res,res1) => {return res.json()} ;
-           
-            function toto9(res) {
-              return res.json()
-            } #}
-
-
-
-           
-            {# $( "button" ).on( "click", function() {
-              $( this ).replaceWith( "<div>xxx" + $( this ).text() + "xxxx</div>" );
-            }); #}
-           
+                {# let  toto = res => res.json();
+                let  aucarré = x => x*x;
+                let  toto1 = (res,res1) => {return res.json()} ;
+              
+                function toto9(res) {
+                  return res.json()
+                } #}
 
 
 
-          </script>
+              
+                {# $( "button" ).on( "click", function() {
+                  $( this ).replaceWith( "<div>xxx" + $( this ).text() + "xxxx</div>" );
+                }); #}
+              
+
+
+
+              </script>
 
 
 

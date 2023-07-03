@@ -37,10 +37,11 @@
 
 
       {# adresse et validation #}
-      <form action="{{ path('app_paiement_index') }}" method="POST" id="aePanierValidate" name="aePanierValidate">
+     
 
         <div class="col-lg-9">
-          <div class="card border shadow-0">
+           <form action="{{ path('app_paiement_index') }}" method="POST" id="aePanierValidate" name="aePanierValidate">
+           <div class="card border shadow-0">
             <div class="m-4">
               <h4 class="card-title mb-4">Votre panier</h4>         
             
@@ -59,11 +60,11 @@
           {# {{ include('/panier/panierBlocCoupon.html.twig') }}   #}        
           
           {{ include('/panier/panierBlocTotal.html.twig') }}         
-        
+        </form>
         </div>
          <!-- summary -->
 
-       </form>
+       
      
     </div>
   </div>
