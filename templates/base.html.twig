@@ -72,19 +72,35 @@
               //console.log(operator+' / '+qtity+' / '+id);
               //console.log( document.getElementById("articleQtity"+id).value); 
               quantite = parseInt(document.getElementById("articleQtity"+id).value)
-
-              //TODO: verifier que qtity>0 et <5 limite de max boite
-              switch (operator) {
-                case 'plus':
-                   document.getElementById("articleQtity"+id).value = quantite+1;
-                  break;
-                case 'moins':
-                   document.getElementById("articleQtity"+id).value = quantite-1;
+              console.log("quantite : "+ quantite);
+              
+              //Verifier que quantite >0 et <10 limite de max boite
+              
+             
+              
+             
+                switch (operator) {
+                  case 'plus':
+                    if(parseInt(quantite)+1 > 10 ){  
+                      console.log("quantite+1 : "+ parseInt(quantite)+parseInt(1));              
+                      console.log("+1 max");
+                      return;
+                    }
+                    document.getElementById("articleQtity"+id).value = quantite+1;
                     break;
-                 case 'egal':
-                   document.getElementById("articleQtity"+id).value = qtity;
-                  break; 
-              }  
+                  case 'moins':
+                    if(parseInt(quantite)-1 < 0 ){  
+                      console.log("quantite+1 : "+ parseInt(quantite)-1);                
+                      console.log("-1 min");
+                      return;
+                    }
+                    document.getElementById("articleQtity"+id).value = quantite-1;
+                      break;
+                  //case 'egal':
+                    //document.getElementById("articleQtity"+id).value = qtity;
+                    //break; 
+                }  
+              
             }
           </script>
 

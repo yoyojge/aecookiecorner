@@ -6,11 +6,21 @@
     {{ form_errors(form) }}
 
     <div class="mb-3">
-        <label for="adresse_typeAdresse" class="form-label required">Type adresse</label>
+        <label for="adresse_typeAdresse" class="form-label required">Type d'adresse</label>
         <select id="adresse_typeAdresse" name="adresse[typeAdresse]" class="form-select">
             <option value="Livraison" {% if adresse.typeAdresse ==1 %} selected{% endif %}>Livraison</option>
             <option value="Facturation" {% if adresse.typeAdresse ==2 %} selected{% endif %}>Facturation</option>
         </select> 
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label required" for="adresse_nomAdresse">nom</label>
+            <input type="text" id="adresse_nomAdresse" name="adresse[nomAdresse]" required="required" maxlength="255" class="form-control" {% if adresse.nomAdresse != null %} value="{{adresse.nomAdresse}}" {% endif %}>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label required" for="adresse_prenomAdresse">Prénom</label>
+            <input type="text" id="adresse_prenomAdresse" name="adresse[prenomAdresse]" required="required" maxlength="255" class="form-control" {% if adresse.prenomAdresse != null %} value="{{adresse.prenomAdresse}}" {% endif %}>
     </div>
 
     <div class="mb-3">

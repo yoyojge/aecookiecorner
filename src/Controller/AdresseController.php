@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Adresse;
 use App\Form\AdresseType;
 use App\Repository\AdresseRepository;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,13 +15,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/adresse')]
 class AdresseController extends AbstractController
 {
+    
+    
+    
     #[Route('/', name: 'app_adresse_index', methods: ['GET'])]
     public function index(AdresseRepository $adresseRepository): Response
     {
+        
+        $user = $this->getUser();
+        $userId = $user->getId();
+        // dd($userId);
+        $criteria = ['user' => $userId];
         return $this->render('adresse/index.html.twig', [
-            'adresses' => $adresseRepository->findAll(),
+            'adresses' => $adresseRepository->findBy($criteria),
         ]);
     }
+
+
+
 
     #[Route('/new', name: 'app_adresse_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AdresseRepository $adresseRepository): Response
@@ -35,6 +47,8 @@ class AdresseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             // dd($_POST["adresse"]);
+            $adresse->setNomAdresse($_POST["adresse"]["nomAdresse"]);
+            $adresse->setPrenomAdresse($_POST["adresse"]["prenomAdresse"]);
             $adresse->setTypeAdresse($_POST["adresse"]["typeAdresse"]);
             $adresse->setRueAdresse($_POST["adresse"]["rueAdresse"]);
             $adresse->setCpAdresse($_POST["adresse"]["cpAdresse"]);

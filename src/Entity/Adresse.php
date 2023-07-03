@@ -41,6 +41,12 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $cpAdresse = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nomAdresse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prenomAdresse = null;
+
     
 
     public function __construct()
@@ -187,6 +193,30 @@ class Adresse
     public function setCpAdresse(string $cpAdresse): self
     {
         $this->cpAdresse = $cpAdresse;
+
+        return $this;
+    }
+
+    public function getNomAdresse(): ?string
+    {
+        return $this->nomAdresse;
+    }
+
+    public function setNomAdresse(string $nomAdresse): self
+    {
+        $this->nomAdresse = $nomAdresse;
+
+        return $this;
+    }
+
+    public function getPrenomAdresse(): ?string
+    {
+        return $this->prenomAdresse;
+    }
+
+    public function setPrenomAdresse(string $prenomAdresse): self
+    {
+        $this->prenomAdresse = $prenomAdresse;
 
         return $this;
     }

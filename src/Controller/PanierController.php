@@ -33,17 +33,19 @@ class PanierController extends AbstractController
                 ];
                 $totalPanier +=  $article->getPrixArticle() * $qtity;
             }
-        }        
+        }   
         
-        $criteriaLivraion = ["typeAdresse" => "Livraison"];
-        $criteriaFacturation = ["typeAdresse" => "Facturation"];
+        $userId = $this->getUser()->getId();
+        
+        $criteriaLivraison = ["typeAdresse" => "Livraison", 'user' => $userId];
+        $criteriaFacturation = ["typeAdresse" => "Facturation", 'user' => $userId];
 
         return $this->render('panier/index.html.twig', [
             
            "dataPanier" => $dataPanier, 
            "totalPanier" => $totalPanier,
            "session" => $panier,
-           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraion),
+           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraison),
            'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
         ]);
     }
@@ -77,7 +79,7 @@ class PanierController extends AbstractController
             }
         }        
         
-        $criteriaLivraion = ["typeAdresse" => "Livraison"];
+        $criteriaLivraison = ["typeAdresse" => "Livraison"];
         $criteriaFacturation = ["typeAdresse" => "Facturation"];
 
         return $this->render('panier/index.html.twig', [
@@ -85,7 +87,7 @@ class PanierController extends AbstractController
            "dataPanier" => $dataPanier, 
            "totalPanier" => $totalPanier,
            "session" => $panier,
-           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraion),
+           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraison),
            'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
         ]);
         
