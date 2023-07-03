@@ -15,23 +15,93 @@
 {{dump(totalPanier)}}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
+<div id="paypal-boutons"></div>
 
 {% endblock %}
 
+
+{% block javascripts %}
+<script src="https://www.paypal.com/sdk/js?client-id=AR05guCj-nHFsi9iXoOWUH7P0P1uV7ooE1hEAC8HuWEKtlGFSDO4BdxxiCwYHOMIB6AqxkXF7uJZ25Lw&currency=EUR&locale=fr_FR"></script>
+<script>
+	// 2. Afficher le bouton PayPal
+	paypal.Buttons({
+
+	// Configurer la transaction
+	createOrder : function (data, actions) {
+
+		// Les produits à payer avec leurs details
+          /*
+		var produits = [
+			{
+				name : "Produit 1",
+				description : "Description du produit 1",
+				quantity : 1,
+				unit_amount : { value : 9.9, currency_code : "USD" }
+			},
+			{
+				name : "Produit 2",
+				description : "Description du produit 2",
+				quantity : 1,
+				unit_amount : { value : 8.0, currency_code : "USD" }
+			}
+		];
+          */
+
+          
+          /*
+		// Le total des produits
+		var total_amount = produits.reduce(function (total, product) {
+			return total + product.unit_amount.value * product.quantity;
+		}, 0); 
+          */
+          var total_amount = {{totalPanier}};
+
+		// La transaction
+		return actions.order.create({
+			purchase_units : [{
+				//items : produits,
+				amount : {
+					value : total_amount,
+					currency_code : "EUR",
+					breakdown : {
+						item_total : { value : total_amount, currency_code : "EUR" }
+					}
+				}
+			}]
+		});
+	},
+
+     // Finalize the transaction
+     onApprove: function (data, actions) {
+          return actions.order.capture().then(function (orderData) {
+               // Successful capture! For demo purposes:
+              
+               console.log(orderData);
+               fetch("{{ path('app_paiement_process') }}", {
+               method: 'POST',
+               body: "order=" + JSON.stringify(orderData),
+               headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded'
+               })
+               }).then(function (response) {
+                    console.log("truc")
+                    /*
+               if (response.status == 200) {
+                    window.location.href = "{{ path('app_paiement_merci') }}";
+               } else {
+                    //alert('Une erreur est survenue');
+                    window.location.href = "{{ path('app_paiement_probleme') }}";
+               }*/
+               }).catch(function(erreur){
+                    console.log(erreur)
+               });
+               
+          });
+     }
+
+}).render("#paypal-boutons");
+</script>
+{% endblock %}
 
 
 
