@@ -112,7 +112,7 @@ class PaiementController extends AbstractController
     #[Route('/merci', name: 'app_paiement_merci', methods: ['GET', 'POST'])]
     public function merci(): Response
     {
-        return $this->render('paiement/probleme.html.twig', [
+        return $this->render('paiement/merci.html.twig', [
             
 
         ]);
