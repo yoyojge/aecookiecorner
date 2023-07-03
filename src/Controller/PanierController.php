@@ -58,11 +58,9 @@ class PanierController extends AbstractController
     public function updateFromPanier( Request $request, SessionInterface $sessionPanier, ArticleRepository $articleRepository, AdresseRepository $adresseRepository): Response
     {    
         // dd($_POST);
-
         $panier = $sessionPanier->get("panier", []);
         $panier[$_POST['articleId']] = $_POST['articleQtity'];
         $sessionPanier->set("panier", $panier);
-
 
         // $panier = $sessionPanier->get("panier", []);
         $dataPanier = [];
@@ -82,17 +80,55 @@ class PanierController extends AbstractController
         $criteriaLivraison = ["typeAdresse" => "Livraison"];
         $criteriaFacturation = ["typeAdresse" => "Facturation"];
 
-        return $this->render('panier/index.html.twig', [
-            
+        return $this->render('panier/index.html.twig', [            
            "dataPanier" => $dataPanier, 
            "totalPanier" => $totalPanier,
            "session" => $panier,
            'adressesLivraison' => $adresseRepository->findBy($criteriaLivraison),
            'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
         ]);
+    }
+
+
+    #[Route('/deleteFromPanier', name: 'app_deleteFromPanier', methods: ['GET', 'POST'])]
+    public function deleteFromPanier( Request $request, SessionInterface $sessionPanier, ArticleRepository $articleRepository, AdresseRepository $adresseRepository): Response
+    {    
+        $panier = $sessionPanier->get("panier", []);
+       
+        // dd($panier);
+
+        unset( $panier[$_GET['idArticle']] ); 
+       
+        // dd($panier);
+
+        $sessionPanier->set("panier", $panier);
         
+        $dataPanier = [];
+        $totalPanier = 0;       
+        
+        if(!empty($panier)){
+            // dd('$panier');
 
+            foreach( $panier as $id=>$qtity){
+                $article = $articleRepository->find($id);
+                $dataPanier[] = [
+                    "article" => $article,
+                    "quantite" => $qtity,
+                ];
+                $totalPanier +=  $article->getPrixArticle() * $qtity;
+            }
+        }            
+        
+        $criteriaLivraison = ["typeAdresse" => "Livraison"];
+        $criteriaFacturation = ["typeAdresse" => "Facturation"];
 
+        return $this->render('panier/index.html.twig', [            
+           "dataPanier" => $dataPanier, 
+           "totalPanier" => $totalPanier,
+           "session" => $panier,
+           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraison),
+           'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
+        ]);
     }
 
 
