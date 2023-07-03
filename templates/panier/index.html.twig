@@ -39,34 +39,44 @@
       {# adresse et validation #}
      
 
-        <div class="col-lg-9">
-           <form action="{{ path('app_paiement_index') }}" method="POST" id="aePanierValidate" name="aePanierValidate">
-           <div class="card border shadow-0">
+      <div class="col-lg-9 mt-4">
+      <form action="{{ path('app_paiement_index') }}" method="POST" id="aePanierValidate" name="aePanierValidate"> 
+
+          <div class="card border shadow-0">
             <div class="m-4">
-              <h4 class="card-title mb-4">Votre panier</h4>         
-            
                 <!-- ligne bloc livraison Start -->
                 {{ include('/panier/panierBlocLivraison.html.twig') }}  
                 <!-- ligne bloc livraison End -->
-
             </div>
           </div>
-        </div>
+      </div>
         <!-- cart -->
 
-        <!-- summary -->
-        <div class="col-lg-3">
+      <!-- summary -->
+      <div class="col-lg-3 mt-4">
 
-          {# {{ include('/panier/panierBlocCoupon.html.twig') }}   #}        
-          
-          {{ include('/panier/panierBlocTotal.html.twig') }}         
-        </form>
-        </div>
-         <!-- summary -->
+        {# {{ include('/panier/panierBlocCoupon.html.twig') }}   #}        
+        
+        {{ include('/panier/panierBlocTotal.html.twig') }}         
+      </form>
+      </div>
+        <!-- summary -->
 
        
      
     </div>
+
+    <div class="row">
+      <div class=" pt-4 mx-4 mb-4">
+        <p>
+          <b>FRANCE MÉTROPOLITAINE ET MONACO</b> : Pour toute commande passée avant 14h<br />
+          Chronopost : 24 à 48h* du lundi au jeudi<br />
+          *jours ouvrables
+        </p>
+      </div>
+    </div>
+
+
   </div>
 </section>
 
