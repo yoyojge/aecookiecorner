@@ -6,16 +6,81 @@
 
 {% block body %}
 
-{{dump(panierSess)}}
+{# {{dump(panierSess)}}
 
 {{dump(addLivrSess)}}
 
 {{dump(addFactSess)}}
 
-{{dump(totalPanier)}}
+{{dump(totalPanier)}} #}
 
 
-<div id="paypal-boutons"></div>
+<section class="bg-light my-5">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-lg-6 mt-4">
+			
+
+				<div class="card border shadow-0">
+					<div class="m-4">
+						{# {{dump(addLivrSess)}} #}
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title"><i class="fas fa-truck text-muted fa-lg"></i>  Livraison</h5>
+							<p class="card-text">{{addLivrSess.nomAdresse}} {{addLivrSess.prenomAdresse}}</p>
+							<p class="card-text">{{addLivrSess.rueAdresse}}</p>
+							<p class="card-text">{{addLivrSess.cpAdresse}}</p>
+							<p class="card-text">{{addLivrSess.villeAdresse}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-6 mt-4">
+				<div class="card border shadow-0">
+					<div class="m-4">
+						{# {{dump(addFactSess)}} #}
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title"><i class="fab fa-lg fa-cc-paypal "></i> Livraison</h5>
+							<p class="card-text">{{addFactSess.nomAdresse}} {{addFactSess.prenomAdresse}}</p>
+							<p class="card-text">{{addFactSess.rueAdresse}}</p>
+							<p class="card-text">{{addFactSess.cpAdresse}}</p>
+							<p class="card-text">{{addFactSess.villeAdresse}}</p>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-6 mt-4">
+			
+
+				<div class="card border shadow-0">
+					<div class="m-4">
+						<b>Total de la commande * : {{ totalPanier}} €</b><br />
+						( * frais de livraison inclus )
+					</div>
+				</div>
+			</div>	
+
+
+			<div class="col-lg-6 mt-4">
+			
+
+				<div class="card border shadow-0">
+					<div class="m-4">
+						<div id="paypal-boutons"></div> 
+					</div>
+				</div>
+			</div>			
+		</div>
+
+	</div>
+</section>
+
+
 
 {% endblock %}
 

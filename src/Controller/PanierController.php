@@ -163,6 +163,9 @@ class PanierController extends AbstractController
             $panier[$id] += $qtity;
         }
         
+        
+
+
         $sessionPanier->set("panier", $panier);
 
         $result = [];
