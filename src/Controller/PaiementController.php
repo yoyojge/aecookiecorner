@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Commande;
 use App\Entity\Article;
+use App\Entity\Adresse;
+use App\Entity\Commande;
+use App\Entity\CommandeArticle;
 use App\Form\CommandeType;
-use App\Repository\CommandeRepository;
 use App\Repository\AdresseRepository;
 use App\Repository\ArticleRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\FactureRepository;
+use App\Repository\CommandeRepository;
+use App\Repository\CommandeArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/paiment')]
 class PaiementController extends AbstractController
@@ -30,23 +35,6 @@ class PaiementController extends AbstractController
         
         $panier  = $sessionPanier->get("panier", []);
 
-        //on verifie que le total correspond bien au total de la commande
-        $totalConf =0;
-        foreach ( $panier as $key => $value ){
-            // echo "$key=$value<br />";
-            $article = $artRepo->find($key);
-            $articlePrix = $article->getPrixArticle();
-            $totalConf += ($articlePrix * $value);
-        }
-
-        if($totalPanier != $totalConf){
-            return $this->render('paiement/probleme.html.twig', [   
-            ]);
-        }
-
-
-
-
         //recuperer l'id adresse de livraison
         $idAdresseLivraison = $_POST["adresseLivraisonCHBX"];
         //recuperer l'instance de l'objet adresse de livraison
@@ -61,16 +49,13 @@ class PaiementController extends AbstractController
         $adresseFacturation = $addRepo->find($idAdresseFacturation);
         //mettre en session l'instance de l'objet adresse de livraison
         $sessionPanier->set("adresseFacturation", $adresseFacturation);
-        $addFactSess =  $sessionPanier->get("adresseFacturation", []);
-
-        
+        $addFactSess =  $sessionPanier->get("adresseFacturation", []);        
         
         return $this->render('paiement/index.html.twig', [
             "panierSess" => $panier,
             "addLivrSess" => $addLivrSess,
             "addFactSess" => $addFactSess,
             "totalPanier" => $totalPanier,
-
         ]);
     }
 
@@ -78,7 +63,7 @@ class PaiementController extends AbstractController
 
 
     #[Route('/process', name: 'app_paiement_process', methods: ['POST'])]
-    public function process(Request $request): Response
+    public function process(Request $request, SessionInterface $sessionPanier, CommandeRepository $cmdRepo, FactureRepository $FactRepo, EntityManagerInterface $entityManager, ArticleRepository $artRepo, AdresseRepository $addRepo, CommandeArticleRepository $cmdArtRepo): Response
     {
         $order = json_decode($request->get('order'), true);
 
@@ -86,10 +71,69 @@ class PaiementController extends AbstractController
         $amount = $order['purchase_units'][0]['amount']['value'];
         $status = $order['status'];
 
-        $totalPanier = 5;
-        $totalConf = 5;
+        // $totalPanier = 5;
+        // $totalConf = 5;
+
+        //on verifie que le total correspond bien au total de la commande
+        $panier  = $sessionPanier->get("panier", []);
+        $totalConf = 0;
+        foreach ( $panier as $key => $value ){
+            // echo "$key=$value<br />";
+            $article = $artRepo->find($key);
+            $articlePrix = $article->getPrixArticle();
+            $totalConf += ($articlePrix * $value);
+        }
+
+        if($amount != $totalConf){
+            return $this->render('paiement/probleme.html.twig', [   
+            ]);
+        }
         
-        if ($totalPanier == $totalConf && $status == 'COMPLETED') {
+        if ($amount == $totalConf && $status == 'COMPLETED') {
+
+            //TODO: enregister la commande
+            $commande = new Commande();
+            $commande->setDateCommande(new \DateTime());
+            $commande->setEtatCommande('COMPLETED');
+            $commande->setTotalCommande($totalConf);
+
+            foreach ( $panier as $key => $value ){
+                
+                $article = new Article();
+                $article = $artRepo->find($key);
+                
+                $commandeArticle = new CommandeArticle();                
+                $commandeArticle->setCommande($commande);
+                $commandeArticle->setArticle($article);
+                $commandeArticle->setQuantiteCommandeArticle( $value);
+
+                $cmdArtRepo->save($commandeArticle);
+                $entityManager->persist($commandeArticle);
+
+                $commande->addCommandeArticle($commandeArticle);   
+
+            }   
+            
+           
+            $idAdresseFacturation = $sessionPanier->get("adresseFacturation", []);   
+            $adresseFacturation = $addRepo->find($idAdresseFacturation);
+            $commande->setAdresse($adresseFacturation);
+            $commande->setUser($this->getUser());
+
+
+            //TODO: enregister la facture
+            // $facture = new Facture();
+
+
+            // $commande->setFacture();
+            $cmdRepo->save($commande);
+            $entityManager->persist($commande);
+            
+            // $entityManager->persist($facture);
+            $entityManager->flush();
+
+            //TODO: vider le panier
+
                        
             return new Response(true);
         }
