@@ -26,7 +26,11 @@ class PanierController extends AbstractController
 
         if(!empty($panier)){
             foreach( $panier as $id=>$qtity){
-                $article = $articleRepository->find($id);
+                $article = $articleRepository->find($id);                
+
+                //si ajour du meme cookie en plusieurs fois
+                if($qtity >10 ){$qtity = 10;}
+
                 $dataPanier[] = [
                     "article" => $article,
                     "quantite" => $qtity,
@@ -98,7 +102,8 @@ class PanierController extends AbstractController
         $criteriaLivraison = ["typeAdresse" => "Livraison"];
         $criteriaFacturation = ["typeAdresse" => "Facturation"];
 
-        return $this->render('panier/index.html.twig', [            
+        return $this->render('panier/index.html.twig', [  
+            "userConnected" => "oui",           
            "dataPanier" => $dataPanier, 
            "totalPanier" => $totalPanier,
            "session" => $panier,
@@ -140,7 +145,8 @@ class PanierController extends AbstractController
         $criteriaLivraison = ["typeAdresse" => "Livraison"];
         $criteriaFacturation = ["typeAdresse" => "Facturation"];
 
-        return $this->render('panier/index.html.twig', [            
+        return $this->render('panier/index.html.twig', [  
+            "userConnected" => "oui",           
            "dataPanier" => $dataPanier, 
            "totalPanier" => $totalPanier,
            "session" => $panier,

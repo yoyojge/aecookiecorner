@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Adresse;
 use App\Entity\Commande;
+use App\Entity\Facture;
 use App\Entity\CommandeArticle;
 use App\Form\CommandeType;
 use App\Repository\AdresseRepository;
@@ -118,11 +119,21 @@ class PaiementController extends AbstractController
             $idAdresseFacturation = $sessionPanier->get("adresseFacturation", []);   
             $adresseFacturation = $addRepo->find($idAdresseFacturation);
             $commande->setAdresse($adresseFacturation);
+
+            $idAdresseLivraison = $sessionPanier->get("adresseLivraison", []);   
+            $adresseLivraison = $addRepo->find($idAdresseLivraison);
+            $commande->setAdresseLivraison($adresseLivraison);
+
             $commande->setUser($this->getUser());
 
 
-            //TODO: enregister la facture
-            // $facture = new Facture();
+            //enregister la facture
+            $facture = new Facture();
+            $facture->setDateFacture(new \DateTime());
+            $facture->setCommande($commande);
+            $facture->setAdresse($adresseFacturation);
+            $FactRepo->save($facture);
+            $entityManager->persist($facture);
 
 
             // $commande->setFacture();

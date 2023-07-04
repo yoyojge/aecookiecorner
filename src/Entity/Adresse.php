@@ -47,12 +47,16 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $prenomAdresse = null;
 
+    #[ORM\OneToMany(mappedBy: 'adresseLivraison', targetEntity: Commande::class)]
+    private Collection $commandes;
+
     
 
     public function __construct()
     {
         $this->commande = new ArrayCollection();
         $this->facture = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function __toString()
@@ -219,6 +223,14 @@ class Adresse
         $this->prenomAdresse = $prenomAdresse;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
     }
 
     
