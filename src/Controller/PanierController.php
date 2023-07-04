@@ -22,8 +22,8 @@ class PanierController extends AbstractController
         
         $panier  = $sessionPanier->get("panier", []);
         $dataPanier = [];
-        $totalPanier = 0;       
-        
+        $totalPanier = 0; 
+
         if(!empty($panier)){
             foreach( $panier as $id=>$qtity){
                 $article = $articleRepository->find($id);
@@ -35,19 +35,37 @@ class PanierController extends AbstractController
             }
         }   
         
-        $userId = $this->getUser()->getId();
         
-        $criteriaLivraison = ["typeAdresse" => "Livraison", 'user' => $userId];
-        $criteriaFacturation = ["typeAdresse" => "Facturation", 'user' => $userId];
-
-        return $this->render('panier/index.html.twig', [
+        if(empty($this->getUser())){
+            return $this->render('panier/index.html.twig', [
+                "userConnected" => "non", 
+                "dataPanier" => $dataPanier, 
+                "totalPanier" => $totalPanier,
+                "session" => $panier,
+                'message' => "Veuillez vous connecter pour passer la commande !",
+               
+             ]);
+        }
+        else{     
             
-           "dataPanier" => $dataPanier, 
-           "totalPanier" => $totalPanier,
-           "session" => $panier,
-           'adressesLivraison' => $adresseRepository->findBy($criteriaLivraison),
-           'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
-        ]);
+            $userId = $this->getUser()->getId();
+            
+            $criteriaLivraison = ["typeAdresse" => "Livraison", 'user' => $userId];
+            $criteriaFacturation = ["typeAdresse" => "Facturation", 'user' => $userId];
+    
+            return $this->render('panier/index.html.twig', [
+                "userConnected" => "oui", 
+                "dataPanier" => $dataPanier, 
+                "totalPanier" => $totalPanier,
+                "session" => $panier,
+                'adressesLivraison' => $adresseRepository->findBy($criteriaLivraison),
+                'adressesFacturation' => $adresseRepository->findBy($criteriaFacturation),
+            ]);
+
+        }
+        
+        
+       
     }
 
 

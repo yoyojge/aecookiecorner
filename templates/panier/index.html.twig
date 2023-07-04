@@ -44,9 +44,19 @@
 
           <div class="card border shadow-0">
             <div class="m-4">
+                
+                {% if userConnected == "non" %}
+                <!-- ligne bloc livraison Start -->
+                 {{ message }}
+                <!-- ligne bloc livraison End -->
+                 {% endif %}
+                
+                
+                {% if userConnected == "oui" %}
                 <!-- ligne bloc livraison Start -->
                 {{ include('/panier/panierBlocLivraison.html.twig') }}  
                 <!-- ligne bloc livraison End -->
+                 {% endif %}
             </div>
           </div>
       </div>
