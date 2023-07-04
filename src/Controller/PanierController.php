@@ -24,6 +24,8 @@ class PanierController extends AbstractController
         $dataPanier = [];
         $totalPanier = 0; 
 
+        // dd($panier);
+
         if(!empty($panier)){
             foreach( $panier as $id=>$qtity){
                 $article = $articleRepository->find($id);                

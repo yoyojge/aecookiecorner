@@ -72,9 +72,6 @@ class PaiementController extends AbstractController
         $amount = $order['purchase_units'][0]['amount']['value'];
         $status = $order['status'];
 
-        // $totalPanier = 5;
-        // $totalConf = 5;
-
         //on verifie que le total correspond bien au total de la commande
         $panier  = $sessionPanier->get("panier", []);
         $totalConf = 0;
@@ -92,7 +89,7 @@ class PaiementController extends AbstractController
         
         if ($amount == $totalConf && $status == 'COMPLETED') {
 
-            //TODO: enregister la commande
+            //enregister la commande
             $commande = new Commande();
             $commande->setDateCommande(new \DateTime());
             $commande->setEtatCommande('COMPLETED');
@@ -144,6 +141,9 @@ class PaiementController extends AbstractController
             $entityManager->flush();
 
             //TODO: vider le panier
+            // $panier  = $sessionPanier->get("panier", []);
+            $panier = [];
+            $sessionPanier->set("panier", $panier);
 
                        
             return new Response(true);
