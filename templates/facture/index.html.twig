@@ -1,35 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Facture index{% endblock %}
+{% block title %}MES FACTURES{% endblock %}
 
 {% block body %}
-    <h1>Facture index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DateFacture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for facture in factures %}
-            <tr>
-                <td>{{ facture.id }}</td>
-                <td>{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
-                    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<section class="bg-light">
+  <div class="container">
+    <div class="row">       
 
-    <a href="{{ path('app_facture_new') }}">Create new</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></th>
+                    <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
+                </tr>
+            </thead>
+        </table>
+
+         <div class="mb-3">
+            <i class="fa-regular fa-envelope" style="color: var(--mdb-link-color);"></i><span style="color: var(--mdb-link-color);"><b> {{ app.user.userIdentifier }}</b></span>
+            <a href="{{ path('app_logout') }}">Déconnexion</a> 
+        </div>
+
+        <h1>Factures</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>DateFacture</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for facture in factures %}
+                <tr>
+                    <td>{{ facture.id }}</td>
+                    <td>{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
+                        <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_facture_new') }}">Create new</a>
+
+
+    </div>
+  </div>
+</section> 
 {% endblock %}

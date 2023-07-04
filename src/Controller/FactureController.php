@@ -16,8 +16,11 @@ class FactureController extends AbstractController
     #[Route('/', name: 'app_facture_index', methods: ['GET'])]
     public function index(FactureRepository $factureRepository): Response
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $criteria = ['user' => $userId];
         return $this->render('facture/index.html.twig', [
-            'factures' => $factureRepository->findAll(),
+            'factures' => $factureRepository->findBy($criteria),
         ]);
     }
 

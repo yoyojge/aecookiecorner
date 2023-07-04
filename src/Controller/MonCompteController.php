@@ -3,23 +3,24 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\MailJetService;
 use App\Form\RegistrationFormType;
 use App\Security\UserAuthenticator;
+use App\Repository\AdresseRepository;
+use App\Repository\FactureRepository;
+use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-
-use App\Repository\AdresseRepository;
-use App\Repository\FactureRepository;
-use App\Repository\CommandeRepository;
 
 
 class MonCompteController extends AbstractController
@@ -91,7 +92,18 @@ class MonCompteController extends AbstractController
     }
 
 
+    //test sent email ajax call service
+    #[Route('/sendMessageTest', name: 'app_aecookie_sendMessageTest', methods: ['GET', 'POST'])]
+    public function sendMessageTest( MailJetService $mailJetService): Response
+    {
 
+        $mailJetService->mailJetSendTest();
+        return new Response(
+            'response ok', 
+             Response::HTTP_OK
+        );
+
+    }
 
     
 

@@ -1,16 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adresse index{% endblock %}
+{% block title %}MES ADRESSES{% endblock %}
 
 {% block body %}
 
 
-<section class="bg-light my-5">
+<section class="bg-light">
   <div class="container">
     <div class="row">
 
 
-        <h1>Adresse index</h1>
+        
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></th>
+                    <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
+                    <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="mb-3">
+            <i class="fa-regular fa-envelope" style="color: var(--mdb-link-color);"></i><span style="color: var(--mdb-link-color);"><b> {{ app.user.userIdentifier }}</b></span>
+            <a href="{{ path('app_logout') }}">Déconnexion</a> 
+        </div>
+
+        <h1>Adresses</h1>
 
         <table class="table">
             <thead>

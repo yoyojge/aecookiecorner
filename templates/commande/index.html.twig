@@ -1,9 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande index{% endblock %}
+{% block title %}MES COMMANDES{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+
+<section class="bg-light">
+  <div class="container">
+    <div class="row">
+
+        
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></th>
+                    <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="mb-3">
+            <i class="fa-regular fa-envelope" style="color: var(--mdb-link-color);"></i><span style="color: var(--mdb-link-color);"><b> {{ app.user.userIdentifier }}</b></span>
+            <a href="{{ path('app_logout') }}">Déconnexion</a> 
+        </div>
+
+
+
+
+    <h1>Commandes</h1>
 
     <table class="table">
         <thead>
@@ -36,4 +62,9 @@
     </table>
 
     <a href="{{ path('app_commande_new') }}">Create new</a>
+
+
+    </div>
+  </div>
+</section> 
 {% endblock %}

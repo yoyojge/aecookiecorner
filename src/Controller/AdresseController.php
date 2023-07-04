@@ -24,7 +24,6 @@ class AdresseController extends AbstractController
         
         $user = $this->getUser();
         $userId = $user->getId();
-        // dd($userId);
         $criteria = ['user' => $userId];
         return $this->render('adresse/index.html.twig', [
             'adresses' => $adresseRepository->findBy($criteria),
