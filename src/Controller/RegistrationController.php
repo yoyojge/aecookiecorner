@@ -45,7 +45,7 @@ class RegistrationController extends AbstractController
             $user->setTokenUser( $token);
 
             //on renseigne active
-            $user->setStatusUser("notConformitated");
+            $user->setStatusUser("notConfirmed");
             //maj mercredi
 
             $entityManager->persist($user);
@@ -63,15 +63,49 @@ class RegistrationController extends AbstractController
 
 
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            // return $userAuthenticator->authenticateUser(
+            //     $user,
+            //     $authenticator,
+            //     $request
+            // );
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
+
+
+
+    //confirmation inscription
+    #[Route('/confirmationInscription', name: 'app_ae_confirmationInscription', methods: ['GET', 'POST'])]
+    public function confirmationInscription(Request $request, UserRepository $userRepository): Response
+    {
+        //recuperer le token
+        $token = $request->query->get('token');
+        
+
+        //recuperer le user concerné
+        $userNew = $userRepository->findOneBy( ['tokenUser' =>  $token ]); 
+        
+
+        //vider le token en Bdd et mettre active a true        
+        $userNew->setTokenUser(null);
+        $userNew->setStatusUser("Confirmed");
+        $userRepository->save($userNew, true);
+        // dd($userNew);
+
+        //ajout d'un message flash
+        $this->addFlash('compteAjout', 'Bravo, votre compte est maintenant complètement validé !');
+
+        return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+
+    }
+
+
+
+
 }

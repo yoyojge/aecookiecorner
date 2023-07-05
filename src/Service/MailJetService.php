@@ -70,7 +70,7 @@ class MailJetService extends AbstractController {
                     [
                          'From' => [
                               'Email' => "info@bdboom.fr",
-                              'Name' => "BDboom"
+                              'Name' => "A&E Cookie Corner"
                          ],
                          'To' => [
                               [
@@ -78,7 +78,7 @@ class MailJetService extends AbstractController {
                                    'Name' => $user->getPrenomUser()." ".$user->getNomUser()
                               ]
                          ],
-                         'TemplateID'=> 4595050,
+                         'TemplateID'=> 4932841,
                          'TemplateLanguage' => true,
                          'Subject' => 'Bienvenu sur A&E Cookie Corner.',
                          // 'Variables' => json_decode('{
@@ -95,7 +95,7 @@ class MailJetService extends AbstractController {
           ];
           
           $response = $mj->post(Resources::$Email, ['body' => $body]);
-          dd($response);
+          // dd($response);
           $response->success() && var_dump($response->getData());
      }
 
