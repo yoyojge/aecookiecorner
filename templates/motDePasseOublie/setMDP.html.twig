@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MOT DE PASSE OUBLIE{% endblock %}
+
+{% block body %}
+<section class="bg-light">
+  <div class="container">
+    <div class="row">
+    <h1>Nouveau mot de passe</h1>
+
+    <form action="{{ path('app_ae_motdepasseoublieChangeMDP') }}" method="POST" id="aePanierValidate" name="aePanierValidate">
+        <label for="inputMDP">Mot de passe</label>
+        <input type="text" name="MDPnew" id="inputMDP" class="form-control"  required autofocus />
+        <input type="hidden" name="token" value="{{token}}" />
+        <button type="submit">Envoyer</button>
+
+
+    </form>
+
+  
+
+    </div>
+  </div>
+</section>
+{% endblock %}

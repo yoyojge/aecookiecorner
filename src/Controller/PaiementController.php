@@ -2,23 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
 use App\Entity\Adresse;
-use App\Entity\Commande;
+use App\Entity\Article;
 use App\Entity\Facture;
-use App\Entity\CommandeArticle;
+use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Entity\CommandeArticle;
+use App\Service\MailJetService;
 use App\Repository\AdresseRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\FactureRepository;
 use App\Repository\CommandeRepository;
-use App\Repository\CommandeArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CommandeArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+
 use Symfony\Component\Routing\Annotation\Route;
-
-
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -64,7 +65,7 @@ class PaiementController extends AbstractController
 
 
     #[Route('/process', name: 'app_paiement_process', methods: ['POST'])]
-    public function process(Request $request, SessionInterface $sessionPanier, CommandeRepository $cmdRepo, FactureRepository $FactRepo, EntityManagerInterface $entityManager, ArticleRepository $artRepo, AdresseRepository $addRepo, CommandeArticleRepository $cmdArtRepo): Response
+    public function process(Request $request, SessionInterface $sessionPanier, CommandeRepository $cmdRepo, FactureRepository $FactRepo, EntityManagerInterface $entityManager, ArticleRepository $artRepo, AdresseRepository $addRepo, CommandeArticleRepository $cmdArtRepo, MailJetService $mailJetService): Response
     {
         $order = json_decode($request->get('order'), true);
 
@@ -140,11 +141,13 @@ class PaiementController extends AbstractController
             // $entityManager->persist($facture);
             $entityManager->flush();
 
-            //TODO: vider le panier
+            //vider le panier
             // $panier  = $sessionPanier->get("panier", []);
             $panier = [];
             $sessionPanier->set("panier", $panier);
 
+            //envoi de mail automatique
+            $mailJetService->mailJetConfirmCommande($this->getUser());
                        
             return new Response(true);
         }

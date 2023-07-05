@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MOT DE PASSE OUBLIE{% endblock %}
+
+{% block body %}
+<section class="bg-light">
+  <div class="container">
+    <div class="row">
+    <h1>Mot de passe oublié</h1>
+
+    {#  message flash compte confirmé #}
+        {% for message in app.flashes('mdpOublie') %}
+        <div class="alert alert-success" role="alert">
+            {{ message | raw }}
+        </div>
+        {% endfor %}    
+
+
+    <form action="{{ path('app_ae_motdepasseoublieSendEmail') }}" method="POST" id="aePanierValidate" name="aePanierValidate">
+        <label for="inputEmail">Email</label>
+        <input type="email" name="emailMDPoublie" id="inputEmail" class="form-control" autocomplete="email" required autofocus />
+        <button type="submit">Envoyer</button>
+
+
+    </form>
+
+  
+
+    </div>
+  </div>
+</section>
+{% endblock %}
