@@ -93,11 +93,14 @@ class PanierController extends AbstractController
         if(!empty($panier)){
             foreach( $panier as $id=>$qtity){
                 $article = $articleRepository->find($id);
-                $dataPanier[] = [
-                    "article" => $article,
-                    "quantite" => $qtity,
-                ];
-                $totalPanier +=  $article->getPrixArticle() * $qtity;
+
+                if($qtity > 0){
+                    $dataPanier[] = [
+                        "article" => $article,
+                        "quantite" => $qtity,
+                    ];
+                    $totalPanier +=  $article->getPrixArticle() * $qtity;
+                }
             }
         }        
         
