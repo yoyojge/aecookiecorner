@@ -182,14 +182,8 @@ class MailJetService extends AbstractController {
                          ],
                          'TemplateID'=> 4934334,
                          'TemplateLanguage' => true,
-                         'Subject' => 'Commande validée',
-                         // 'Variables' => json_decode('{
-                         //           "urlConf": "http://bdboom.test/confirmationInscription?token="'.$user->getToken().'
-                         //      }', true)
-                         'Variables' => [
-                              // 'urlConf' => $_SERVER["REQUEST_SCHEME"].'://'.$_SERVER["HTTP_HOST"].'/confirmationInscription?token='.$user->getTokenUser().''
-                              // 'urlConf' => 'https://127.0.0.1:8000/motdepasseoublieSetMDP?token='.$user->getTokenUser().''
-                         ]
+                         'Subject' => 'Commande validée'
+                         
                     ]
                          
                ]
