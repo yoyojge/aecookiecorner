@@ -103,7 +103,7 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
 
-    }
+    }    
 
 
 
