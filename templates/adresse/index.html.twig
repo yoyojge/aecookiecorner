@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     {# <th>Id</th> #}
-                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a></th>
                     <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
                     <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
                 </tr>
@@ -34,10 +34,10 @@
             <thead>
                 <tr>
                     {# <th>Id</th> #}
-                    <th>TypeAdresse</th>
+                    <th>Type d'adresse</th>
                     <th>Nom</th>
                     <th>Adresse</th>
-                    <th>actions</th>
+                    <th>action</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,8 +55,8 @@
                          {{ adresse.villeAdresse }}
                     </td>
                     <td>
-                        <a href="{{ path('app_adresse_show', {'id': adresse.id}) }}">show</a>
-                        <a href="{{ path('app_adresse_edit', {'id': adresse.id}) }}">edit</a>
+                        <a href="{{ path('app_adresse_show', {'id': adresse.id}) }}">voir</a>
+                        <a href="{{ path('app_adresse_edit', {'id': adresse.id}) }}">éditer</a>
                     </td>
                 </tr>
             {% else %}
@@ -67,7 +67,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_adresse_new') }}">Create new</a>
+        {# <a href="{{ path('app_adresse_new') }}">Create new</a> #}
 
 
     </div>

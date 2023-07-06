@@ -3,6 +3,33 @@
 {% block title %}Commande{% endblock %}
 
 {% block body %}
+<section class="bg-light">
+  <div class="container">
+    <div class="row">  
+
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a></th>
+                    <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
+                    <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="mb-3">
+            <i class="fa-regular fa-envelope" style="color: var(--mdb-link-color);"></i><span style="color: var(--mdb-link-color);"><b> {{ app.user.userIdentifier }}</b></span>
+            <a href="{{ path('app_logout') }}">Déconnexion</a> 
+        </div>
+
+        <h1>Adresses</h1>
+
+
     <h1>Commande</h1>
 
     <table class="table">
@@ -28,7 +55,11 @@
 
     <a href="{{ path('app_commande_index') }}">back to list</a>
 
-    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
+    {# <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a> #}
 
-    {{ include('commande/_delete_form.html.twig') }}
+    {# {{ include('commande/_delete_form.html.twig') }} #}
+
+    </div>
+  </div>
+</section> 
 {% endblock %}

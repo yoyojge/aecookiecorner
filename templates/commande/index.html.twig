@@ -15,7 +15,7 @@
                 <tr>
                     {# <th>Id</th> #}
                     <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
-                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a></th>
                     <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
                 </tr>
             </thead>
@@ -38,7 +38,7 @@
                 <th>DateCommande</th>
                 <th>EtatCommande</th>
                 <th>TotalCommande</th>
-                <th>actions</th>
+                <th>action</th>
             </tr>
         </thead>
         <tbody>
@@ -49,8 +49,8 @@
                 <td>{{ commande.etatCommande }}</td>
                 <td>{{ commande.totalCommande }}</td>
                 <td>
-                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">show</a>
-                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
+                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">voir</a>
+                    {# <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -61,7 +61,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_commande_new') }}">Create new</a>
+    {# <a href="{{ path('app_commande_new') }}">Create new</a> #}
 
 
     </div>

@@ -3,24 +3,68 @@
 {% block title %}Facture{% endblock %}
 
 {% block body %}
+<section class="bg-light">
+  <div class="container">
+    <div class="row">  
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
+                <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a></th>
+                <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
+                <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
+            </tr>
+        </thead>
+    </table>
+
+
+
+
     <h1>Facture</h1>
+
+{# {{dump(commande)}} #}
+{# {{dump(adresseFacturation)}} #}
+{# {{dump(adresseF)}}       #}
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Référence facture</th>
                 <td>{{ facture.id }}</td>
             </tr>
             <tr>
-                <th>DateFacture</th>
+                <th>Date</th>
                 <td>{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+             <tr>
+                <th>N° de commande</th>
+                <td>{{ idCommande }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{montantCommande}} €</td>
+            </tr>
+            <tr>
+                <th>Adresse de facturation</th>
+                <td>
+                    {{adresseF.nomAdresseFacturation}} {{adresseF.prenomAdresseFacturation}}<br />
+                    {{adresseF.rueAdresseFacturation}}<br />
+                     {{adresseF.cpAdresseFacturation}}  {{adresseF.villeAdresseFacturation}} 
+                </td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_facture_index') }}">back to list</a>
 
-    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>
+    {# <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a> #}
 
-    {{ include('facture/_delete_form.html.twig') }}
+    {# {{ include('facture/_delete_form.html.twig') }} #}
+
+    </div>
+  </div>
+</section> 
 {% endblock %}

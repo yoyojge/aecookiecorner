@@ -13,7 +13,7 @@
                 <tr>
                     {# <th>Id</th> #}
                     <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
-                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a></th>
                     <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
 
          <div class="mb-3">
             <i class="fa-regular fa-envelope" style="color: var(--mdb-link-color);"></i><span style="color: var(--mdb-link-color);"><b> {{ app.user.userIdentifier }}</b></span>
-            <a href="{{ path('app_logout') }}">Déconnexion</a> 
+            <a href="{{ path('app_logout') }}" >Déconnexion</a> 
         </div>
 
         <h1>Factures</h1>
@@ -29,30 +29,36 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>DateFacture</th>
-                    <th>actions</th>
+                    <th>Référence facture</th>
+                    <th>Date</th>
+                     <th>N° de facture</th>
+                    <th>action</th>
                 </tr>
             </thead>
             <tbody>
-            {% for facture in factures %}
+
+            
+            {% for facture in factures %}    
+                {# {{dump(facture)}}             #}
                 <tr>
                     <td>{{ facture.id }}</td>
                     <td>{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ facture.commande.id }}</td>
                     <td>
-                        <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
-                        <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>
+                        <a href="{{ path('app_facture_show', {'id': facture.id}) }}">Afficher</a>
+                        {# <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a> #}
                     </td>
+                    
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">no records found</td>
+                    <td colspan="3">Aucune facture</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('app_facture_new') }}">Create new</a>
+        {# <a href="{{ path('app_facture_new') }}">Create new</a> #}
 
 
     </div>

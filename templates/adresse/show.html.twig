@@ -3,6 +3,30 @@
 {% block title %}Adresse{% endblock %}
 
 {% block body %}
+
+<section class="bg-light">
+  <div class="container">
+    <div class="row">  
+
+
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th><a href="{{ path('app_adresse_index') }}">Mes adresses</a></th>
+                    <th><a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a></th>
+                    <th><a href="{{ path('app_commande_index') }}">Mes Commandes</a></th>
+                    <th><a href="{{ path('app_facture_index') }}">Mes Factures</a></th>
+                </tr>
+            </thead>
+        </table>
+
+        <div class="mb-3">
+            <i class="fa-regular fa-envelope" style="color: var(--mdb-link-color);"></i><span style="color: var(--mdb-link-color);"><b> {{ app.user.userIdentifier }}</b></span>
+            <a href="{{ path('app_logout') }}">Déconnexion</a> 
+        </div>
     <h1>Adresse</h1>
 
     <table class="table">
@@ -12,7 +36,7 @@
                 <td>{{ adresse.id }}</td>
             </tr>
             <tr>
-                <th>TypeAdresse</th>
+                <th>Type d'adresse</th>
                 <td>{{ adresse.typeAdresse }}</td>
             </tr>
             <tr>
@@ -27,4 +51,8 @@
     <a href="{{ path('app_adresse_edit', {'id': adresse.id}) }}">edit</a>
 
     {{ include('adresse/_delete_form.html.twig') }}
+
+    </div>
+  </div>
+</section> 
 {% endblock %}
