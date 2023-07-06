@@ -93,7 +93,7 @@ class PaiementController extends AbstractController
             //enregister la commande
             $commande = new Commande();
             $commande->setDateCommande(new \DateTime());
-            $commande->setEtatCommande('COMPLETED');
+            $commande->setEtatCommande('PAYEE');
             $commande->setTotalCommande($totalConf);
 
             foreach ( $panier as $key => $value ){

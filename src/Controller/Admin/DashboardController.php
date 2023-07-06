@@ -9,12 +9,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\Commande;
 use App\Entity\Categorie;
 use App\Entity\Article;
 use App\Entity\Visuel;
 use App\Entity\Adresse;
 use App\Entity\User;
 
+use App\Controller\Admin\CommandeCrudController;
 use App\Controller\Admin\CategorieCrudController;
 use App\Controller\Admin\ArticleCrudController;
 use App\Controller\Admin\VisuelCrudController;
@@ -69,10 +71,12 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
-        yield MenuItem::linkToCrud('Users', 'fas fa-list', User::class);
+        // yield MenuItem::linkToCrud('Users', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('Commande', 'fas fa-list', Commande::class);
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Articles', 'fas fa-list', Article::class);
         yield MenuItem::linkToCrud('Visuels', 'fas fa-list', Visuel::class);
-        yield MenuItem::linkToCrud('Adresses', 'fas fa-list', Adresse::class);
+        // yield MenuItem::linkToCrud('Adresses', 'fas fa-list', Adresse::class);
+        
     }
 }
